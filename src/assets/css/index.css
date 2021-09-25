@@ -24,6 +24,23 @@ body {
   background-size: 100%;
   overflow-y: scroll;
 }
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+::-webkit-scrollbar-thumb {
+  background: #5266a8;
+  border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #5e5a8a;
+}
+::-webkit-scrollbar-track {
+  background: #f0f0f000;
+  border-radius: 0px;
+  box-shadow: inset 0px 0px 0px 0px #f0f0f0;
+}
 
 /*
  ===========================
@@ -37,10 +54,12 @@ body {
   align-items: center;
   width: fit-content;
   margin: 20vh auto 10vh auto;
+  transition: 0.6s ease-out;
 }
 
 #form-container img {
   width: 36vw;
+  transition: 0.6s ease-out;
 }
 
 h1 {
@@ -102,6 +121,7 @@ Main
 */
 
 main {
+  position: relative;
   width: 90%;
   margin: 0px auto;
   display: grid;
@@ -126,4 +146,22 @@ main {
 }
 .champion img {
   margin-bottom: 8px;
+}
+
+@keyframes rotateImg {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#loading-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+  height: 300px;
+  transform-origin: center;
+  animation: rotateImg 8s linear;
 }

@@ -4,9 +4,17 @@ import Logo from './assets/img/logo.png'
 const Form = ({name,region,setName,setRegion,handleSubmit}) => {
     return (
         <div id="form-container">
-            <img src={Logo} alt="Logo" />
+            <img id="logo" src={Logo} alt="Logo" />
             <h2>Check On Which Champions You Have Not Obtained The Chest Yet</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={(event) => {
+                 handleSubmit(event);
+                const form = document.getElementById('form-container');
+                const logo = document.getElementById('logo');
+                logo.style.width = '20vw'
+                form.style.marginTop = '10px';
+                
+                }
+                }>
                 <div id="search-box">
                     <select name="region" id="region">
                         <option value="eun1">EUNE</option>

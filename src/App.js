@@ -2,11 +2,15 @@ import React,{useState,useEffect} from 'react'
 // Components
 import Form from './Form'
 import Champion from './Champion'
+import Loading from './Loading'
 
 const App = () => {
-    const API_KEY = 'RGAPI-93af7fea-56ca-44ad-a582-b2d187b247e6';
+    const API_KEY = 'RGAPI-254f1613-d415-4405-9cfa-2d22e3a2c2a7';
     const CHAMPION_URL = 'http://ddragon.leagueoflegends.com/cdn/11.19.1/data/en_US/champion.json';
     // USE STATE
+
+    const [isLoading, setIsLoading] = useState(false)
+
     const [name, setName] = useState('');
     const [summonerId, setSummonerId] = useState('')
     const [filteredChampions, setFilteredChampions] = useState([])
@@ -16,10 +20,13 @@ const App = () => {
     // FETCH FUNCTION
     const handleSubmit = (e) => {
         e.preventDefault();
+        setIsLoading(true)
 
         fetch(`https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${name}?api_key=${API_KEY}`)
         .then(res => res.json())
-        .then(data => setSummonerId(data.id))
+        .then(data => {
+            setSummonerId(data.id)
+        })
         .catch(error => console.log('This user does not exist on this server'))
     
         setName('');
@@ -40,8 +47,11 @@ const App = () => {
                 .then(res => res.json())
                 .then(data => {
                     let filteredChamps = data.filter(item => item.chestGranted === false)
-                    console.log(filteredChamps);
+                    console.log(filteredChamps)
                     setFilteredChampions(filteredChamps)
+                    setTimeout(() => {
+                        setIsLoading(false)
+                    }, [600]);
                 })
             })
         }
@@ -51,16 +61,22 @@ const App = () => {
         <>
         <Form name={name} setName={setName} region={setRegion} setRegion={setRegion} handleSubmit={handleSubmit}/>
         
-        <main>
             {
-            filteredChampions.map(champ => {
+            !isLoading
+            ?
+            <main>
+                {
+                    filteredChampions.map(champ => {
                 const champObj = champions.find(item => item.id === String(champ.championId))  
                 return (
                     <Champion {...champObj}/>
                 ) 
             })
+                }
+            </main>
+            :
+            <Loading />
         }
-        </main>
         </>
     )
 }
