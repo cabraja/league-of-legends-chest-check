@@ -5,7 +5,7 @@ import Champion from './Champion'
 import Loading from './Loading'
 
 const App = () => {
-    const API_KEY = 'RGAPI-254f1613-d415-4405-9cfa-2d22e3a2c2a7';
+    const API_KEY = 'RGAPI-839c5a73-7294-48a2-9844-70277eaea3a8';
     const CHAMPION_URL = 'http://ddragon.leagueoflegends.com/cdn/11.19.1/data/en_US/champion.json';
     // USE STATE
 
